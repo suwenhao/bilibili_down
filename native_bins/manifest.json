@@ -1,0 +1,200 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-07-31",
+  "files": [
+    {
+      "path": "aria2/android-arm64_v8a/aria2c",
+      "version": "aria2 1.36.0 / Aria2Android 2.6.8 (76)",
+      "license": "GPL-3.0-only distribution; bundled aria2 is GPL-2.0-or-later",
+      "source": "F-Droid reproducible build com.gianlu.aria2android_76",
+      "sourceUrl": "https://f-droid.org/packages/com.gianlu.aria2android/",
+      "sha256": "646bd6564f2ea00ba6b4662b66852fd3fbb332d4ab60c0d7ee2e30a840cbb23c",
+      "licenseFiles": [
+        {
+          "name": "Aria2Android GPL-3.0-only",
+          "path": "assets/licenses/aria2android-gpl-3.0.txt",
+          "url": "https://github.com/devgianlu/Aria2Android/blob/master/LICENSE",
+          "downloadUrl": "https://raw.githubusercontent.com/devgianlu/Aria2Android/master/LICENSE"
+        },
+        {
+          "name": "aria2 GPL-2.0-or-later",
+          "path": "assets/licenses/aria2-gpl-2.0.txt",
+          "url": "https://github.com/aria2/aria2/blob/master/COPYING",
+          "downloadUrl": "https://raw.githubusercontent.com/aria2/aria2/master/COPYING"
+        }
+      ]
+    },
+    {
+      "path": "aria2/android-armeabi_v7a/aria2c",
+      "version": "aria2 1.36.0 / Aria2Android 2.6.8 (76)",
+      "license": "GPL-3.0-only distribution; bundled aria2 is GPL-2.0-or-later",
+      "source": "F-Droid reproducible build com.gianlu.aria2android_76",
+      "sourceUrl": "https://f-droid.org/packages/com.gianlu.aria2android/",
+      "sha256": "c7f83c321eb440466f839903bba8e479395ec444177a754d7def3271436e259f",
+      "licenseFiles": [
+        {
+          "name": "Aria2Android GPL-3.0-only",
+          "path": "assets/licenses/aria2android-gpl-3.0.txt",
+          "url": "https://github.com/devgianlu/Aria2Android/blob/master/LICENSE",
+          "downloadUrl": "https://raw.githubusercontent.com/devgianlu/Aria2Android/master/LICENSE"
+        },
+        {
+          "name": "aria2 GPL-2.0-or-later",
+          "path": "assets/licenses/aria2-gpl-2.0.txt",
+          "url": "https://github.com/aria2/aria2/blob/master/COPYING",
+          "downloadUrl": "https://raw.githubusercontent.com/aria2/aria2/master/COPYING"
+        }
+      ]
+    },
+    {
+      "path": "aria2/android-x86_x64/aria2c",
+      "version": "aria2 1.36.0 / Aria2Android 2.6.8 (76)",
+      "license": "GPL-3.0-only distribution; bundled aria2 is GPL-2.0-or-later",
+      "source": "F-Droid reproducible build com.gianlu.aria2android_76",
+      "sourceUrl": "https://f-droid.org/packages/com.gianlu.aria2android/",
+      "sha256": "9ff36caa58ac2395c83c613ed2d0c6ce782dda81e59bc88a88ea509782f90d75",
+      "licenseFiles": [
+        {
+          "name": "Aria2Android GPL-3.0-only",
+          "path": "assets/licenses/aria2android-gpl-3.0.txt",
+          "url": "https://github.com/devgianlu/Aria2Android/blob/master/LICENSE",
+          "downloadUrl": "https://raw.githubusercontent.com/devgianlu/Aria2Android/master/LICENSE"
+        },
+        {
+          "name": "aria2 GPL-2.0-or-later",
+          "path": "assets/licenses/aria2-gpl-2.0.txt",
+          "url": "https://github.com/aria2/aria2/blob/master/COPYING",
+          "downloadUrl": "https://raw.githubusercontent.com/aria2/aria2/master/COPYING"
+        }
+      ]
+    },
+    {
+      "path": "aria2/linux-arm64/aria2c",
+      "version": "aria2-zero v2025.04.06-release.1",
+      "license": "GPL-2.0-or-later",
+      "source": "zeromake/aria2-zero release asset aria2-linux-arm64-v8a.zip",
+      "sourceUrl": "https://github.com/zeromake/aria2-zero/releases/tag/v2025.04.06-release.1",
+      "sha256": "6cdb4f2514ef9c2639db0668042b7bae7017c494aff3f7f9027170a30cc5469f",
+      "licenseFiles": [
+        {
+          "name": "aria2 GPL-2.0-or-later",
+          "path": "assets/licenses/aria2-gpl-2.0.txt",
+          "url": "https://github.com/aria2/aria2/blob/master/COPYING",
+          "downloadUrl": "https://raw.githubusercontent.com/aria2/aria2/master/COPYING"
+        }
+      ]
+    },
+    {
+      "path": "aria2/linux-x86_x64/aria2c",
+      "version": "aria2-zero v2025.04.06-release.1",
+      "license": "GPL-2.0-or-later",
+      "source": "zeromake/aria2-zero release asset aria2-linux-x86_64.zip",
+      "sourceUrl": "https://github.com/zeromake/aria2-zero/releases/tag/v2025.04.06-release.1",
+      "sha256": "e98c4626c8e4f26059226d70a1a69850b12f4406a0aca075a083784a90941e52",
+      "licenseFiles": [
+        {
+          "name": "aria2 GPL-2.0-or-later",
+          "path": "assets/licenses/aria2-gpl-2.0.txt",
+          "url": "https://github.com/aria2/aria2/blob/master/COPYING",
+          "downloadUrl": "https://raw.githubusercontent.com/aria2/aria2/master/COPYING"
+        }
+      ]
+    },
+    {
+      "path": "aria2/macos-arm64/aria2c",
+      "version": "aria2-zero v2025.04.06-release.1",
+      "license": "GPL-2.0-or-later",
+      "source": "zeromake/aria2-zero release asset aria2-macosx-arm64.zip",
+      "sourceUrl": "https://github.com/zeromake/aria2-zero/releases/tag/v2025.04.06-release.1",
+      "sha256": "eef5ef63ede878e69b9c70e3ae65640f8fa685bca0eee3a9807905334c7d6eef",
+      "licenseFiles": [
+        {
+          "name": "aria2 GPL-2.0-or-later",
+          "path": "assets/licenses/aria2-gpl-2.0.txt",
+          "url": "https://github.com/aria2/aria2/blob/master/COPYING",
+          "downloadUrl": "https://raw.githubusercontent.com/aria2/aria2/master/COPYING"
+        }
+      ]
+    },
+    {
+      "path": "aria2/macos-x86_64/aria2c",
+      "version": "aria2-zero v2025.04.06-release.1",
+      "license": "GPL-2.0-or-later",
+      "source": "zeromake/aria2-zero release asset aria2-macosx-x86_64.zip",
+      "sourceUrl": "https://github.com/zeromake/aria2-zero/releases/tag/v2025.04.06-release.1",
+      "sha256": "54031312a4459cd33d36d70b8ad723d987a643fee92c4f222af23c8c15a9de83",
+      "licenseFiles": [
+        {
+          "name": "aria2 GPL-2.0-or-later",
+          "path": "assets/licenses/aria2-gpl-2.0.txt",
+          "url": "https://github.com/aria2/aria2/blob/master/COPYING",
+          "downloadUrl": "https://raw.githubusercontent.com/aria2/aria2/master/COPYING"
+        }
+      ]
+    },
+    {
+      "path": "aria2/windows-arm64/aria2c.exe",
+      "version": "aria2 1.37.0",
+      "license": "GPL-2.0-or-later",
+      "source": "Approved repository import b054f085; upstream aria2 release-1.37.0 source",
+      "sourceUrl": "https://github.com/aria2/aria2/releases/tag/release-1.37.0",
+      "sha256": "33c775256f64123515f32a8252200ef2ab5ad72963981c694dff5e61d650f6be",
+      "licenseFiles": [
+        {
+          "name": "aria2 GPL-2.0-or-later",
+          "path": "assets/licenses/aria2-gpl-2.0.txt",
+          "url": "https://github.com/aria2/aria2/blob/master/COPYING",
+          "downloadUrl": "https://raw.githubusercontent.com/aria2/aria2/master/COPYING"
+        }
+      ]
+    },
+    {
+      "path": "aria2/windows-x86_x64/aria2c.exe",
+      "version": "aria2 1.37.0 official build1",
+      "license": "GPL-2.0-or-later",
+      "source": "aria2 official asset aria2-1.37.0-win-64bit-build1.zip",
+      "sourceUrl": "https://github.com/aria2/aria2/releases/tag/release-1.37.0",
+      "sha256": "be2099c214f63a3cb4954b09a0becd6e2e34660b886d4c898d260febfe9d70c2",
+      "licenseFiles": [
+        {
+          "name": "aria2 GPL-2.0-or-later",
+          "path": "assets/licenses/aria2-gpl-2.0.txt",
+          "url": "https://github.com/aria2/aria2/blob/master/COPYING",
+          "downloadUrl": "https://raw.githubusercontent.com/aria2/aria2/master/COPYING"
+        }
+      ]
+    },
+    {
+      "path": "ffmpeg/linux-arm64/ffmpeg",
+      "version": "FFmpeg n8.1.2-22-g94138f6973-20260710",
+      "license": "LGPL-3.0-or-later build; --enable-version3 without --enable-gpl or --enable-nonfree",
+      "source": "BtbN FFmpeg-Builds ARM64 static LGPL build; approved repository import 3bb92b6f",
+      "sourceUrl": "https://github.com/BtbN/FFmpeg-Builds",
+      "sha256": "7c7a73b8ee7fbd16869089c004ca8391ea2feee396eb5c678b804a727a4584a2",
+      "licenseFiles": [
+        {
+          "name": "LGPL-3.0-or-later",
+          "path": "assets/licenses/lgpl-3.0.txt",
+          "url": "https://www.gnu.org/licenses/lgpl-3.0.txt",
+          "downloadUrl": "https://www.gnu.org/licenses/lgpl-3.0.txt"
+        }
+      ]
+    },
+    {
+      "path": "ffmpeg/windows-arm64/ffmpeg.exe",
+      "version": "FFmpeg n8.1.2-22-g94138f6973-20260710",
+      "license": "LGPL-3.0-or-later build; --enable-version3 without --enable-gpl or --enable-nonfree",
+      "source": "BtbN FFmpeg-Builds ARM64 static LGPL build; approved repository import 3bb92b6f",
+      "sourceUrl": "https://github.com/BtbN/FFmpeg-Builds",
+      "sha256": "a51a5f1b11c53ca58c244d12d2068fcd39e09ada8403a30417f7cf251ee42673",
+      "licenseFiles": [
+        {
+          "name": "LGPL-3.0-or-later",
+          "path": "assets/licenses/lgpl-3.0.txt",
+          "url": "https://www.gnu.org/licenses/lgpl-3.0.txt",
+          "downloadUrl": "https://www.gnu.org/licenses/lgpl-3.0.txt"
+        }
+      ]
+    }
+  ]
+}

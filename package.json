@@ -1,0 +1,22 @@
+{
+  "name": "bilibili_down",
+  "version": "1.0.0",
+  "description": "面向 Android、iOS、Windows、macOS 和 Linux 的 Flutter B 站视频下载工具。",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "build:apk": "flutter build apk --release --split-per-abi",
+    "build:abb": "flutter build appbundle --release",
+    "build:window": "flutter config --enable-windows-desktop && flutter build windows --release",
+    "build:macos": "flutter config --enable-macos-desktop && flutter build macos --release",
+    "build:linux": "flutter config --enable-linux-desktop && flutter build linux --release"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://192.168.0.106:8300/suwh/bilibili_down.git"
+  },
+  "author": "",
+  "license": "ISC"
+}

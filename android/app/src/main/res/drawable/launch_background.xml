@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Android 原生启动窗口跟随系统明暗资源，避免首帧前主题反差过大。 -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/launch_background_color" />
+        </shape>
+    </item>
+
+    <!-- 居中复用应用启动图标，让等待期间保持可识别的 BiliDown 品牌。 -->
+    <item>
+        <bitmap
+            android:gravity="center"
+            android:src="@mipmap/ic_launcher" />
+    </item>
+</layer-list>

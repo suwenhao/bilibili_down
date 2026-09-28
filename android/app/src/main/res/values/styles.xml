@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="LaunchTheme" parent="@android:style/Theme.Light.NoTitleBar">
+        <!-- Flutter 首帧前展示品牌启动层，避免 Android 默认白屏停留。 -->
+        <item name="android:windowBackground">@drawable/launch_background</item>
+    </style>
+    <style name="NormalTheme" parent="@android:style/Theme.Light.NoTitleBar">
+        <!-- FlutterActivity 切换到普通主题后仍保持同一底色，防止首帧前闪白。 -->
+        <item name="android:windowBackground">@drawable/launch_background</item>
+    </style>
+</resources>

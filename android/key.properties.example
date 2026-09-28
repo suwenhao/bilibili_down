@@ -1,0 +1,6 @@
+# 本文件只说明 Android 正式签名字段，复制为 key.properties 后填写真实值。
+# storeFile 可使用相对 android 目录的路径；CI 也可改用同名 BILIDOWN_* 环境变量。
+storeFile=upload-keystore.jks
+storePassword=replace-with-secret
+keyAlias=upload
+keyPassword=replace-with-secret

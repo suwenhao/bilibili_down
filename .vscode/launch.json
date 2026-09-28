@@ -1,0 +1,92 @@
+{
+  // VS Code 调试配置版本。
+  "version": "0.2.0",
+  "configurations": [
+    {
+      // 使用状态栏当前选择的 Android、iOS、Windows、macOS 或 Linux 设备。
+      "name": "BiliDown · 当前设备 (Debug)",
+      "type": "dart",
+      "request": "launch",
+      "program": "lib/main.dart",
+      "cwd": "${workspaceFolder}",
+      "flutterMode": "debug"
+    },
+    {
+      // Windows 开发机可直接使用该入口，无需提前切换设备。
+      "name": "BiliDown · Windows (Debug)",
+      "type": "dart",
+      "request": "launch",
+      "program": "lib/main.dart",
+      "cwd": "${workspaceFolder}",
+      "deviceId": "windows",
+      "flutterMode": "debug"
+    },
+    {
+      // 匹配当前已连接的 Android 真机；x86_64 模拟器请使用下面的专用入口。
+      "name": "BiliDown · Android (Debug)",
+      "type": "dart",
+      "request": "launch",
+      "program": "lib/main.dart",
+      "cwd": "${workspaceFolder}",
+      "flutterMode": "debug"
+    },
+    {
+      // MEmu 等多 ABI 模拟器需要明确指定 x86_64，避免包管理器误选 arm64 原生库。
+      "name": "BiliDown · Android x64 模拟器 (Debug)",
+      "type": "dart",
+      "request": "launch",
+      "program": "lib/main.dart",
+      "cwd": "${workspaceFolder}",
+      "deviceId": "127.0.0.1:21503",
+      "flutterMode": "debug",
+      "env": {
+        "BILIDOWN_ANDROID_ABIS": "x86_64"
+      }
+    },
+    {
+      // 在 macOS 开发机上匹配已连接的 iPhone 或已启动的 iOS Simulator。
+      "name": "BiliDown · iOS (Debug)",
+      "type": "dart",
+      "request": "launch",
+      "program": "lib/main.dart",
+      "cwd": "${workspaceFolder}",
+      "flutterMode": "debug"
+    },
+    {
+      // 该入口需要在 macOS 主机或连接到 macOS 的远程 VS Code 环境中使用。
+      "name": "BiliDown · macOS (Debug)",
+      "type": "dart",
+      "request": "launch",
+      "program": "lib/main.dart",
+      "cwd": "${workspaceFolder}",
+      "flutterMode": "debug"
+    },
+    {
+      // 该入口需要在安装 Flutter Linux 桌面工具链的 Linux 主机中使用。
+      "name": "BiliDown · Linux (Debug)",
+      "type": "dart",
+      "request": "launch",
+      "program": "lib/main.dart",
+      "cwd": "${workspaceFolder}",
+      "flutterMode": "debug"
+    },
+    {
+      // 在当前选择设备上检查接近发布环境的性能表现。
+      "name": "BiliDown · 当前设备 (Profile)",
+      "type": "dart",
+      "request": "launch",
+      "program": "lib/main.dart",
+      "cwd": "${workspaceFolder}",
+      "flutterMode": "profile"
+    },
+    {
+      // 在当前选择设备上运行发布模式，不启用调试断点能力。
+      "name": "BiliDown · 当前设备 (Release)",
+      "type": "dart",
+      "request": "launch",
+      "program": "lib/main.dart",
+      "cwd": "${workspaceFolder}",
+      "flutterMode": "release"
+    }
+  ]
+}

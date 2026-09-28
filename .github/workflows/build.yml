@@ -1,0 +1,282 @@
+name: Build packages
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  FLUTTER_CHANNEL: stable
+  # 临时构建产物只保留 7 天；已有产物仍需在 Actions 页面单独清理。
+  ARTIFACT_RETENTION_DAYS: 7
+
+jobs:
+  android:
+    name: Android APK
+    runs-on: ubuntu-latest
+    env:
+      ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+      ANDROID_STORE_PASSWORD: ${{ secrets.ANDROID_STORE_PASSWORD }}
+      ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+      ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: ${{ env.FLUTTER_CHANNEL }}
+          cache: true
+
+      - name: Resolve dependencies
+        run: flutter pub get
+
+      - name: Prepare Android release signing
+        if: ${{ env.ANDROID_KEYSTORE_BASE64 != '' && env.ANDROID_STORE_PASSWORD != '' && env.ANDROID_KEY_ALIAS != '' && env.ANDROID_KEY_PASSWORD != '' }}
+        run: |
+          echo "$ANDROID_KEYSTORE_BASE64" | base64 --decode > android/app/release.jks
+
+      - name: Build signed release APKs
+        if: ${{ env.ANDROID_KEYSTORE_BASE64 != '' && env.ANDROID_STORE_PASSWORD != '' && env.ANDROID_KEY_ALIAS != '' && env.ANDROID_KEY_PASSWORD != '' }}
+        env:
+          BILIDOWN_STORE_FILE: app/release.jks
+          BILIDOWN_STORE_PASSWORD: ${{ env.ANDROID_STORE_PASSWORD }}
+          BILIDOWN_KEY_ALIAS: ${{ env.ANDROID_KEY_ALIAS }}
+          BILIDOWN_KEY_PASSWORD: ${{ env.ANDROID_KEY_PASSWORD }}
+        run: flutter build apk --release --split-per-abi
+
+      - name: Build debug APKs without signing secrets
+        if: ${{ env.ANDROID_KEYSTORE_BASE64 == '' || env.ANDROID_STORE_PASSWORD == '' || env.ANDROID_KEY_ALIAS == '' || env.ANDROID_KEY_PASSWORD == '' }}
+        run: flutter build apk --debug --split-per-abi
+
+      - name: Upload Android APKs
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          retention-days: ${{ env.ARTIFACT_RETENTION_DAYS }}
+          path: |
+            build/app/outputs/flutter-apk/*-release.apk
+            build/app/outputs/flutter-apk/*-debug.apk
+          if-no-files-found: error
+
+  windows:
+    name: Windows ${{ matrix.arch }}
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: x64
+            runner: windows-latest
+            flutter_arch: x64
+            java_arch: x64
+            release_dir: build/windows/x64/runner/Release
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          architecture: ${{ matrix.java_arch }}
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: ${{ env.FLUTTER_CHANNEL }}
+          architecture: ${{ matrix.flutter_arch }}
+          cache: true
+
+      - name: Enable Windows desktop
+        run: flutter config --enable-windows-desktop
+
+      - name: Resolve dependencies
+        run: flutter pub get
+
+      - name: Build Windows
+        run: flutter build windows --release
+
+      - name: Package Windows bundle
+        shell: pwsh
+        run: |
+          if (-not (Test-Path "${{ matrix.release_dir }}")) {
+            Get-ChildItem -Path build/windows -Recurse -Directory | Select-Object -ExpandProperty FullName
+            throw "Expected Windows release directory was not generated: ${{ matrix.release_dir }}"
+          }
+          Compress-Archive -Path "${{ matrix.release_dir }}/*" -DestinationPath "build/bilibili_down-windows-${{ matrix.arch }}.zip" -Force
+
+      - name: Upload Windows bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-${{ matrix.arch }}
+          retention-days: ${{ env.ARTIFACT_RETENTION_DAYS }}
+          path: build/bilibili_down-windows-${{ matrix.arch }}.zip
+          if-no-files-found: error
+
+  linux:
+    name: Linux x64
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Install Linux build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libsecret-1-dev libayatana-appindicator3-dev
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: ${{ env.FLUTTER_CHANNEL }}
+          cache: true
+
+      - name: Enable Linux desktop
+        run: flutter config --enable-linux-desktop
+
+      - name: Resolve dependencies
+        run: flutter pub get
+
+      - name: Build Linux
+        run: flutter build linux --release
+
+      - name: Package Linux bundle
+        run: |
+          tar -C build/linux/x64/release -czf build/bilibili_down-linux-x64.tar.gz bundle
+
+      - name: Package Linux deb
+        run: |
+          VERSION="$(awk '/^version:/ { print $2 }' pubspec.yaml)"
+          DEB_ROOT="$PWD/build/deb-root"
+          rm -rf "$DEB_ROOT"
+          mkdir -p "$DEB_ROOT/DEBIAN" "$DEB_ROOT/opt/bilidown" "$DEB_ROOT/usr/bin" "$DEB_ROOT/usr/share/applications"
+          cp -a build/linux/x64/release/bundle/. "$DEB_ROOT/opt/bilidown/"
+          ln -s /opt/bilidown/bilibili_down "$DEB_ROOT/usr/bin/bilidown"
+          chmod 755 "$DEB_ROOT/opt/bilidown/bilibili_down"
+          cat > "$DEB_ROOT/DEBIAN/control" <<EOF
+          Package: bilibili-down
+          Version: $VERSION
+          Section: video
+          Priority: optional
+          Architecture: amd64
+          Maintainer: BiliDown <noreply@bilidown.local>
+          Depends: libgtk-3-0, libgstreamer1.0-0, libgstreamer-plugins-base1.0-0, liblzma5, libc6, libstdc++6
+          Description: Cross-platform Bilibili video downloader.
+          EOF
+          sed -i 's/^          //' "$DEB_ROOT/DEBIAN/control"
+          cat > "$DEB_ROOT/usr/share/applications/com.bilidown.app.desktop" <<EOF
+          [Desktop Entry]
+          Type=Application
+          Name=BiliDown
+          Comment=Cross-platform Bilibili video downloader
+          Exec=/opt/bilidown/bilibili_down
+          Terminal=false
+          Categories=AudioVideo;Network;
+          EOF
+          sed -i 's/^          //' "$DEB_ROOT/usr/share/applications/com.bilidown.app.desktop"
+          dpkg-deb --build "$DEB_ROOT" build/bilibili-down-linux-amd64.deb
+
+      - name: Upload Linux bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-x64
+          retention-days: ${{ env.ARTIFACT_RETENTION_DAYS }}
+          path: |
+            build/bilibili_down-linux-x64.tar.gz
+            build/bilibili-down-linux-amd64.deb
+          if-no-files-found: error
+
+  macos:
+    name: macOS ${{ matrix.arch }}
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: arm64
+            runner: macos-latest
+          - arch: x86_64
+            runner: macos-15-intel
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: ${{ env.FLUTTER_CHANNEL }}
+          cache: true
+
+      - name: Enable macOS desktop
+        run: flutter config --enable-macos-desktop
+
+      - name: Resolve dependencies
+        run: flutter pub get
+
+      - name: Build macOS
+        run: flutter build macos --release
+
+      - name: Package macOS DMG
+        run: |
+          APP_PATH="$(find build/macos/Build/Products/Release -maxdepth 1 -name '*.app' -print -quit)"
+          test -n "$APP_PATH"
+          DMG_PATH="build/bilibili_down-macos-${{ matrix.arch }}.dmg"
+          hdiutil create \
+            -volname "BiliDown" \
+            -srcfolder "$APP_PATH" \
+            -ov \
+            -format UDZO \
+            "$DMG_PATH"
+
+      - name: Upload macOS DMG
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-${{ matrix.arch }}
+          retention-days: ${{ env.ARTIFACT_RETENTION_DAYS }}
+          path: build/bilibili_down-macos-${{ matrix.arch }}.dmg
+          if-no-files-found: error
+
+  ios:
+    name: iOS unsigned app
+    runs-on: macos-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: ${{ env.FLUTTER_CHANNEL }}
+          cache: true
+
+      - name: Resolve dependencies
+        run: flutter pub get
+
+      - name: Build unsigned iOS app
+        run: flutter build ios --release --no-codesign
+
+      - name: Package unsigned iOS IPA
+        run: |
+          rm -rf build/ios/Payload
+          mkdir -p build/ios/Payload
+          cp -R build/ios/iphoneos/Runner.app build/ios/Payload/
+          cd build/ios
+          zip -qry ../bilibili_down-ios-unsigned.ipa Payload
+
+      - name: Upload unsigned iOS IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-unsigned-ipa
+          retention-days: ${{ env.ARTIFACT_RETENTION_DAYS }}
+          path: build/bilibili_down-ios-unsigned.ipa
+          if-no-files-found: error

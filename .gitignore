@@ -1,0 +1,65 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+/coverage/
+# Android 原生插件的 CMake 中间产物由构建自动生成，不进入版本库。
+**/.cxx/
+.yarn
+yarn.lock
+.serena
+# 本地依赖、索引和 Android Kotlin 缓存可重新生成，不随源码上传。
+/node_modules/
+/.codegraph/
+**/.kotlin/
+
+# 签名材料与 Secrets 导出文件只保存在本地，不能依赖仅当前机器生效的 Git exclude。
+*.jks
+*.keystore
+/github-actions-secrets*.txt
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+# Android 正式签名配置与证书只保存在发布环境，禁止提交仓库。
+/android/key.properties
+/android/*.jks
+/android/*.keystore
+/android/app/*.jks
+/android/app/*.keystore

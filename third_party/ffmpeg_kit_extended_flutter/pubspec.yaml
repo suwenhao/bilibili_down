@@ -1,0 +1,59 @@
+name: ffmpeg_kit_extended_flutter
+description: A comprehensive Flutter plugin for executing FFmpeg, FFprobe, and FFplay commands using FFmpeg 8.1.2 API. Supports Android, iOS, macOS, Linux, and Windows.
+repository: https://github.com/akashskypatel/ffmpeg-kit-extended
+issue_tracker: https://github.com/akashskypatel/ffmpeg-kit-extended/issues
+homepage: https://github.com/akashskypatel/ffmpeg-kit-extended
+documentation: https://github.com/akashskypatel/ffmpeg-kit-extended/tree/master/flutter/doc
+version: 0.5.10
+
+topics:
+  - ffmpeg
+  - media-processing
+  - transcoding
+  - media-tagging
+  - ffmpeg-kit
+
+environment:
+  sdk: ">=3.12.0 <4.0.0"
+  flutter: ">=3.44.0"
+
+flutter:
+  plugin:
+    platforms:
+      linux:
+        pluginClass: FfmpegKitExtendedFlutterPlugin
+      windows:
+        pluginClass: FfmpegKitExtendedFlutterPlugin
+      android:
+        package: com.akashskypatel.ffmpeg_kit_extended_flutter
+        pluginClass: FfmpegKitExtendedFlutterPlugin
+      ios:
+        pluginClass: FfmpegKitExtendedFlutterPlugin
+        fileName: FfmpegKitExtendedFlutterPlugin.h
+      macos:
+        pluginClass: FfmpegKitExtendedFlutterPlugin
+        fileName: FfmpegKitExtendedFlutterPlugin.h
+
+dependencies:
+  code_assets: ^1.2.1
+  crypto: ^3.0.7
+  ffi: ^2.2.0
+  flutter:
+    sdk: flutter
+  hooks: ^2.0.2
+  logging: ^1.3.0
+  meta: ^1.18.0
+  path: ^1.9.1
+  yaml: ^3.1.3
+
+dev_dependencies:
+  ffigen: ^20.1.1
+  flutter_lints: ^6.0.0
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+  leak_tracker_flutter_testing: ^3.0.10
+  lints: ^6.1.0
+  plugin_platform_interface: ^2.1.8
+  test: ^1.26.3

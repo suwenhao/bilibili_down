@@ -1,0 +1,3 @@
+native_bins/** binary
+native_bins/manifest.json text eol=lf diff
+macos/Runner/copy_native_bins.sh text eol=lf
